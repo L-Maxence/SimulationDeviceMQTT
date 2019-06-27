@@ -14,7 +14,7 @@ namespace SimulationDeviceMQTT
 
         static void Main(string[] args)
         {
-            int nomberdevices = 500;
+            int nomberdevices = 1;
             Device[] devices = new Device[nomberdevices];
 
             for (int i = 0; i < nomberdevices; i++)

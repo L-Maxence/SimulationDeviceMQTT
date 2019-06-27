@@ -14,27 +14,31 @@ namespace SimulationDeviceMQTT
     {
         public static int varclass = 0;
 
-        public Publisher()
+        public Publisher()  
         {
-     
+
         }
 
 
-        public  Publisher(int tenta)
+        public Publisher(int tenta)
         {
+            string idDevice = "raspberry";
             MqttClient client = new MqttClient("10.154.128.153");
             client.Connect(Guid.NewGuid().ToString());
-            client.Publish("hello" , Encoding.UTF8.GetBytes("Hello, I'm a new re" + tenta),MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE,true);
-
-            client.MqttMsgPublished += client_MqttMsgPublished;
-            //Thread.Sleep(TimeSpan.FromMilliseconds(10));
+            client.Publish("device/command/", Encoding.UTF8.GetBytes("{\"name\":\"humiditySensor_wealthy-snails\",\"macAddress\":\"44:81:C0:0D:6C:E3\",\"deviceType\":\"humiditySensor\",\"metricValue\":\"0\"}"), MqttMsgBase.QOS_LEVEL_AT_MOST_ONCE, true);
+           // client.Publish("device/" + idDevice + "/telemetry/", Encoding.UTF8.GetBytes("{\"name\":\"humiditySensor_wealthy-snails\",\"macAddress\":\"44:81:C0:0D:6C:E3\",\"deviceType\":\"humiditySensor\",\"metricValue\":\"0\"}"), MqttMsgBase.QOS_LEVEL_AT_MOST_ONCE, true);
+            Thread.Sleep(TimeSpan.FromSeconds(1));
+            client.Disconnect();
             Console.WriteLine(tenta);
 
-
-
-
-
         }
+
+
+
+
+        //client.Publish("device/telemetry", Encoding.UTF8.GetBytes("Hello, I'm a new pickle rick :" + tenta), MqttMsgBase.QOS_LEVEL_AT_MOST_ONCE, true);
+        //client.MqttMsgPublished += client_MqttMsgPublished;
+        //Thread.Sleep(TimeSpan.FromMilliseconds(10));
 
 
 
@@ -54,10 +58,8 @@ namespace SimulationDeviceMQTT
 
         }
 
-        static async void Publish(){
-            
-        }
-         
+
+
 
     }
 }
